@@ -3,7 +3,7 @@ import { items } from "../data/items";
 import { Col, Row } from "react-bootstrap";
 import { StoreItem } from "../components/StoreItem";
 import { CartItemProps } from "../DataType/CartItemDataType";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { AllProducts } from "../centralState/productsState";
 import { ErrorBoundary } from "../components/ErrorBoundary";
@@ -13,11 +13,11 @@ export function Store() {
 
   const [products, setProducts] = useRecoilState(AllProducts);
   //const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+ // const [error, setError] = useState(false);
 
   const fetchData = async () => {
     try{
-      const response = await fetch("https://fakestorepi.com/products");
+      const response = await fetch("https://fakestoreapi.com/products");
       const data = await response.json();
       setProducts(data);
     }catch {
@@ -84,3 +84,47 @@ export function Store() {
     </ErrorBoundary>
   );
 }
+
+
+
+
+// class Store extends React.Component {
+//   constructor(props) {
+//     super(props)
+//     this.state = {
+//       setError: false
+//     }
+//   }
+
+//   static getDerivedStateFromError(error) {
+    
+//     return { setError: true };
+//   }
+
+
+//   async componentDidMount() {
+//     const response = await fetch("https://fakestoreapi.com/products");
+//     const json = await response.json();
+//     this.setState({ data: json });
+//   }
+
+  
+//   render() {
+//       return (
+//         <ErrorBoundary>
+//         <h1 className=" text-center">Store</h1>
+//         <Row md={2} xs={1} lg={4} className="g-3">
+//           {products.map((CartItemProps) => (
+//             //<Col>{JSON.stringify(item)}</Col>
+  
+//             <Col key={CartItemProps.id}>
+//               <StoreItem {...CartItemProps} />
+//             </Col>
+//           ))}
+//         </Row>
+//       </ErrorBoundary>
+//       );
+//   }
+// }
+
+// export default Store;
